@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/index.js"></script>
+    <script>
+        const socket = io.connect("http://localhost/room?roomID=2342", {
+            path: "/socket.io"
+        });
+
+        socket.on("connect", () => {
+            console.log("wow");
+            socket.emit("news", "hello Node Js!")
+        })
+
+        // socket.on("disconnect", () => {
+        //     console.log("wow22");
+        // })
+
+        socket.on("msg", (data) => {
+            console.log(data);
+            // socket.emit("reply", "hello New");
+        })
+    </script>
+</head>
+<body>
+    <div id="main">
+        <input type="text" id="test">
+        <button onclick="send()">
+            전송
+        </button>
+    </div>
+</body>
+</html>
