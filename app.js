@@ -3,10 +3,12 @@ const fs = require("fs");
 const express = require("express");
 const http = require("http");
 const socket = require("./socket");
+const cors = require("cors");
 
 const app = express();
 app.set("port", process.env.PORT || 8080);
 app.set("view engine", "html");
+app.use(cors());
 
 const server = http.createServer(app);
 // const io = socket(server);
