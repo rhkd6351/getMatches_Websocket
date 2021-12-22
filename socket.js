@@ -2,7 +2,10 @@ const res = require("express/lib/response");
 const SocketIO = require("socket.io");
 
 module.exports = (server, app) => {
-  const io = SocketIO(server, { path: "/socket.io" });
+  const io = SocketIO(server, {
+    path: "/socket.io",
+    cors: { origin: "*", methods: ["GET", "POST"] },
+  });
   app.set("io", io);
   const room = io.of("/room");
 

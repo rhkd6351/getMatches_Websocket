@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/index.css">
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://junggam.click/socket.io/socket.io.js"></script>
     <script src="/js/index.js"></script>
     <script>
-        const socket = io.connect(`http://15.164.134.52/room?roomID=2342`, {
-            path: "/socket.io"
+        const socket = io.connect(`https://junggam.click/room?roomID=2342`, {
+            path: "http://junggam.click/socket.io/socket.io"
         });
 
         socket.on("connect", () => {
