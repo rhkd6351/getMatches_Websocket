@@ -15,6 +15,8 @@ module.exports = (server, app) => {
     const req = socket.request;
     const id = socket.id;
     const roomID = socket.handshake.query.roomID;
+    const name = socket.handshake.query.name;
+    const headOfTeam = false;
     const clientsCount =
       room.adapter.rooms.get(roomID) && room.adapter.rooms.get(roomID).size;
 
@@ -34,6 +36,7 @@ module.exports = (server, app) => {
       socket.emit("msg", response);
       socket.disconnect();
     } else {
+      if (clientsCount == 0) headOfTeam = true;
       socket.join(roomID);
       response.msg = id + "님이 참여하였습니다";
       io.of("room").to(roomID).emit("msg", response);
