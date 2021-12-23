@@ -33,12 +33,13 @@ module.exports = (server, app) => {
     if (clientsCount && clientsCount >= 2) {
       console.log("최대 참여 가능 인원을 초과하였습니다");
       response.msg = "인원을 초과하였습니다";
-      socket.emit("msg", response);
+      socket.emit("error", response);
       socket.disconnect();
     } else {
-      if (clientsCount == 0) headOfTeam = true;
+      if (!clientsCount) headOfTeam = true;
       socket.join(roomID);
-      response.msg = id + "님이 참여하였습니다";
+      console.log(roomID);
+      response.msg = name + "님이 참여하였습니다";
       io.of("room").to(roomID).emit("msg", response);
     }
 
