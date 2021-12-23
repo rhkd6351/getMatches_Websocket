@@ -14,10 +14,10 @@ module.exports = (server, app) => {
 
     const req = socket.request;
     const id = socket.id;
-    const roomID = socket.handshake.query.roomID;
-    const name = socket.handshake.query.name;
-    const headOfTeam = false;
-    const clientsCount =
+    let roomID = socket.handshake.query.roomID;
+    let name = socket.handshake.query.name;
+    let headOfTeam = false;
+    let clientsCount =
       room.adapter.rooms.get(roomID) && room.adapter.rooms.get(roomID).size;
 
     // const {
