@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
 
 const io = socket(server, app);
 
-server.listen(80, () => {
+server.listen(8080, () => {
   console.log("서버 실행중");
 });
 
