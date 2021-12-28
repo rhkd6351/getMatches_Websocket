@@ -56,12 +56,14 @@ module.exports = (server, app) => {
 
       response.msg = name + "님이 입장하셨습니다.";
       io.of("room").to(roomID).emit("system", response);
+      io.of("room").to(roomID).emit("enter", name);
     }
 
     socket.on("disconnect", () => {
       response.date = new Date();
       response.msg = name + "님이 퇴장하였습니다";
       io.of("room").to(roomID).emit("system", response);
+      io.of("room").to(roomID).emit("exit", name);
       socket.leave(roomID);
     });
 
