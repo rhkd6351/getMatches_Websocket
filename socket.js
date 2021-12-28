@@ -89,9 +89,8 @@ module.exports = (server, app) => {
       response.date = new Date();
       response.msg = data;
       io.of("room").to(roomID).emit("endTurn", response);
-      io.of("room")
-        .to(roomID)
-        .emit("system", `${name} 님이 턴을 종료하였습니다.`);
+      response.msg = `${name} 님이 턴을 종료하였습니다.`;
+      io.of("room").to(roomID).emit("system", response);
     });
 
     socket.on("endGame", (data) => {
