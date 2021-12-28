@@ -22,6 +22,8 @@ module.exports = (server, app) => {
     let clientsCount =
       room.adapter.rooms.get(roomID) && room.adapter.rooms.get(roomID).size;
 
+    console.log(room);
+
     // const {
     //   headers: { referer },
     // } = req;
@@ -71,11 +73,17 @@ module.exports = (server, app) => {
       response.date = new Date();
       response.data = data;
       io.of("room").to(roomID).emit("start", response);
+      io.of("room")
+        .to(roomID)
+        .emit(
+          "system",
+          `게임 시작! 한 턴에 최대 ${data}개를 가져갈 수 있습니다. 3초 안에 가져가세요!`
+        );
     });
 
     socket.on("pick", (data) => {
       response.date = new Date();
-      response.data = data.matchNum;
+      response.data = data;
       // response.remainMatches = data.remainMatches;
       io.of("room").to(roomID).emit("pick", response);
     });
