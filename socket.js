@@ -71,19 +71,15 @@ module.exports = (server, app) => {
 
     socket.on("start", (data) => {
       response.date = new Date();
-      response.data = data;
+      response.msg = data;
       io.of("room").to(roomID).emit("start", response);
-      io.of("room")
-        .to(roomID)
-        .emit(
-          "system",
-          `게임 시작! 한 턴에 최대 ${data}개를 가져갈 수 있습니다. 3초 안에 가져가세요!`
-        );
+      response.msg = `게임 시작! 한 턴에 최대 ${data}개를 가져갈 수 있습니다. 3초 안에 가져가세요!`;
+      io.of("room").to(roomID).emit("system", response);
     });
 
     socket.on("pick", (data) => {
       response.date = new Date();
-      response.data = data;
+      response.msg = data;
       // response.remainMatches = data.remainMatches;
       io.of("room").to(roomID).emit("pick", response);
     });
@@ -91,14 +87,18 @@ module.exports = (server, app) => {
     //클라이언트에서 토글방식으로 동작
     socket.on("endTurn", (data) => {
       response.date = new Date();
-      response.data = data;
+      response.msg = data;
       io.of("room").to(roomID).emit("endTurn", response);
+      io.of("room")
+        .to(roomID)
+        .emit("system", `${name} 님이 턴을 종료하였습니다.`);
     });
 
     socket.on("endGame", (data) => {
       response.date = new Date();
       // response.data = "game end";
-      io.of("room").to(roomID).emit("system", "게임이 종료되었습니다.");
+      response.msg = `게임 종료`;
+      io.of("room").to(roomID).emit("system", response);
       // io.of("room").to(roomID).emit("endGame", response);
     });
 
