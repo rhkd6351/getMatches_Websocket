@@ -95,10 +95,11 @@ module.exports = (server, app) => {
 
     socket.on("endGame", (data) => {
       response.date = new Date();
-      // response.data = "game end";
-      response.msg = `게임 종료`;
+      response.msg = `${data}님이 승리하였습니다! 게임이 종료되었습니다.`;
       io.of("room").to(roomID).emit("system", response);
-      // io.of("room").to(roomID).emit("endGame", response);
+
+      response.msg = data;
+      io.of("room").to(roomID).emit("endGame", response);
     });
 
     socket.on("msg", (data) => {
