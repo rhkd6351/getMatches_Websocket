@@ -107,5 +107,11 @@ module.exports = (server, app) => {
       response.date = new Date();
       io.of("room").to(roomID).emit("msg", response);
     });
+
+    socket.on("check", (data) => {
+      response.date = new Date();
+      response.msg = room.adapter.rooms.get(roomID).size;
+      io.of("room").to(roomID).emit("check", response);
+    });
   });
 };
